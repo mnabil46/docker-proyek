@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan - Rizky & Anisa</title>
+    <title>Undangan Pernikahan - Adam & Hawa</title>
 
     <!-- Impor Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,60 +11,78 @@
     <!-- Impor Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Impor AOS (Animate On Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Ikon (Ionicons) -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <style>
-        .font-script { font-family: 'Great Vibes', cursive; }
-        .font-body { font-family: 'Montserrat', sans-serif; }
+        /* Pengaturan Font & Warna Tema */
+        .font-heading { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Lato', sans-serif; }
+        
+        .bg-dark { background-color: #1a1a1a; }
+        .bg-soft-dark { background-color: #2b2b2b; }
+        .text-gold { color: #E0C56E; }
+        .border-gold { border-color: #E0C56E; }
+        .hover\:bg-gold:hover { background-color: #E0C56E; }
+        .hover\:text-dark:hover { color: #1a1a1a; }
+
+        /* Gambar Latar dengan Gradasi Gelap */
         .hero-bg {
-            background-image: linear-gradient(to top, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.2)), url('https://placehold.co/1200x800/111827/E5E7EB?text=Foto+Pre-Wedding');
+            background-image: linear-gradient(to top, rgba(26, 26, 26, 1) 10%, rgba(26, 26, 26, 0.4)), url('https://placehold.co/1200x800/1a1a1a/cccccc?text=Foto+Pre-Wedding');
             background-size: cover;
             background-position: center;
         }
-        .text-gold { color: #D4AF37; }
-        .bg-gold { background-color: #D4AF37; }
-        .hover\:bg-gold-dark:hover { background-color: #BF9B30; }
-        .border-gold { border-color: #D4AF37; }
-        
-        /* Menyembunyikan scrollbar */
-        body::-webkit-scrollbar { display: none; }
-        body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Style untuk modal galeri */
-        .modal {
-            transition: opacity 0.25s ease;
+        /* Efek untuk Tombol */
+        .btn-gold {
+            border: 2px solid #E0C56E;
+            color: #E0C56E;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-gold:hover {
+            background-color: #E0C56E;
+            color: #1a1a1a;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(224, 197, 110, 0.2);
+        }
+        
+        /* Garis Pemisah Emas */
+        .divider {
+            width: 80px;
+            height: 2px;
+            background-color: #E0C56E;
+            margin: 2rem auto;
         }
     </style>
 </head>
-<body class="font-body bg-gray-900 text-gray-200 overflow-hidden">
+<body class="font-body bg-dark text-gray-300">
 
     <!-- Audio Player -->
     <audio id="background-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung elemen audio.
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung audio.
     </audio>
 
     <!-- Tombol Kontrol Musik -->
-    <div id="music-control" class="fixed bottom-5 right-5 z-50 hidden">
-        <button id="play-pause-btn" class="w-12 h-12 bg-gold/80 text-gray-900 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm">
+    <div id="music-control" class="fixed bottom-6 right-6 z-50 hidden">
+        <button id="play-pause-btn" class="w-12 h-12 bg-gold/80 text-dark rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm transition hover:scale-110">
             <ion-icon name="pause" class="text-2xl"></ion-icon>
         </button>
     </div>
 
     <!-- Layar Pembuka (Cover) -->
-    <div id="cover" class="fixed inset-0 bg-gray-900 z-50 flex items-center justify-center text-center p-6 hero-bg">
-        <div data-aos="zoom-in" data-aos-duration="1000">
-            <p class="text-lg text-gray-200">Undangan Pernikahan</p>
-            <h1 class="font-script text-6xl md:text-8xl my-4 text-gold">Rizky & Anisa</h1>
-            <p class="text-gray-300 mb-8">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <button id="open-invitation" class="bg-gold text-gray-900 font-bold px-8 py-3 rounded-lg shadow-md hover:bg-gold-dark transition duration-300">
+    <div id="cover" class="fixed inset-0 z-50 flex items-center justify-center text-center p-6 hero-bg">
+        <div data-aos="zoom-in" data-aos-duration="1500" class="text-white">
+            <p class="font-body text-lg tracking-widest">THE WEDDING OF</p>
+            <h1 class="font-heading text-6xl md:text-8xl my-4 text-gold">Adam & Hawa</h1>
+            <p class="font-body text-lg mb-8">10.12.2025</p>
+            <button id="open-invitation" class="btn-gold font-bold px-8 py-3 rounded-full shadow-md text-lg">
                 Buka Undangan
             </button>
         </div>
@@ -72,107 +90,116 @@
 
     <!-- Konten Utama (Awalnya Tersembunyi) -->
     <div id="main-content" class="hidden">
-        <!-- Header & Navigasi -->
-        <header class="bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-black/20 sticky top-0 z-40">
-            <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <div class="font-script text-3xl text-gold">R & A</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#pasangan" class="hover:text-gold transition duration-300">Pasangan</a>
-                    <a href="#acara" class="hover:text-gold transition duration-300">Acara</a>
-                    <a href="#galeri" class="hover:text-gold transition duration-300">Galeri</a>
-                </div>
-            </nav>
-        </header>
+        
+        <!-- Bagian Hero setelah dibuka -->
+        <section id="hero" class="h-screen flex items-end justify-center text-white pb-24 hero-bg">
+            <div class="text-center" data-aos="fade-up" data-aos-duration="1200">
+                <h1 class="font-heading text-6xl md:text-8xl text-gold">Adam & Hawa</h1>
+                <p class="font-body text-lg mt-2">Kami mengundang Anda untuk merayakan hari bahagia kami.</p>
+            </div>
+        </section>
 
-        <main>
-            <!-- Bagian Hero -->
-            <section id="hero" class="hero-bg h-screen flex items-end justify-center text-white pb-20">
-                <div class="text-center" data-aos="fade-up">
-                    <p class="text-lg md:text-xl mb-2">THE WEDDING OF</p>
-                    <h1 class="font-script text-6xl md:text-8xl mb-4 text-gold">Rizky & Anisa</h1>
-                    <p class="text-xl md:text-2xl font-semibold">10 DESEMBER 2025</p>
-                </div>
-            </section>
+        <!-- Bagian Kutipan -->
+        <section class="py-20 md:py-28 bg-dark">
+            <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+                <p class="font-body text-xl md:text-2xl max-w-3xl mx-auto italic leading-relaxed">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
+                </p>
+                <p class="font-heading text-xl text-gold mt-4">(QS. Ar-Rum: 21)</p>
+            </div>
+        </section>
 
-            <!-- Bagian Pasangan -->
-            <section id="pasangan" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="font-script text-5xl text-gold mb-4" data-aos="fade-up">Dengan Rahmat Tuhan</h2>
-                    <p class="max-w-2xl mx-auto mb-12 text-gray-400" data-aos="fade-up" data-aos-delay="100">
-                        Kami bermaksud menyelenggarakan acara pernikahan kami. Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir untuk memberikan doa restu.
-                    </p>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-12">
-                        <div class="w-full md:w-1/3 text-center" data-aos="fade-right">
-                            <img src="https://placehold.co/200x200/1F2937/E5E7EB?text=Foto+Pria" class="w-48 h-48 mx-auto rounded-full shadow-lg shadow-black/30 mb-4 border-2 border-gold/50 p-1" alt="Foto Pria">
-                            <h3 class="font-script text-4xl text-gold">Muhamad Rizky</h3>
-                            <p class="mt-2 text-gray-400">Putra dari Bapak Asep Suherman & Ibu Rina Carlina</p>
-                        </div>
-                        <div class="font-script text-6xl text-gold/70" data-aos="zoom-in">&</div>
-                        <div class="w-full md:w-1/3 text-center" data-aos="fade-left">
-                            <img src="https://placehold.co/200x200/1F2937/E5E7EB?text=Foto+Wanita" class="w-48 h-48 mx-auto rounded-full shadow-lg shadow-black/30 mb-4 border-2 border-gold/50 p-1" alt="Foto Wanita">
-                            <h3 class="font-script text-4xl text-gold">Anisa Putri</h3>
-                            <p class="mt-2 text-gray-400">Putri dari Bapak Ujang Sumarto & Ibu Enih Sukarnih</p>
-                        </div>
+        <!-- Bagian Pasangan -->
+        <section id="pasangan" class="py-20 md:py-28 bg-soft-dark">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-gold" data-aos="fade-up">Mempelai</h2>
+                <div class="divider" data-aos="fade-up"></div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 mt-16">
+                    <!-- Mempelai Pria -->
+                    <div class="w-full md:w-1/3 text-center" data-aos="fade-right" data-aos-duration="1000">
+                        <img src="https://placehold.co/300x300/1a1a1a/E0C56E?text=Adam" class="w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full shadow-lg object-cover border-4 border-gold/50 p-1" alt="Foto Adam">
+                        <h3 class="font-heading text-4xl text-gold mt-6">Adam Smith</h3>
+                        <p class="mt-2 text-gray-400">Putra dari Bapak John Smith & Ibu Jane Smith</p>
+                    </div>
+                    
+                    <!-- Simbol '&' -->
+                    <div class="font-heading text-6xl text-gold/70" data-aos="zoom-in">&</div>
+                    
+                    <!-- Mempelai Wanita -->
+                    <div class="w-full md:w-1/3 text-center" data-aos="fade-left" data-aos-duration="1000">
+                        <img src="https://placehold.co/300x300/1a1a1a/E0C56E?text=Hawa" class="w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full shadow-lg object-cover border-4 border-gold/50 p-1" alt="Foto Hawa">
+                        <h3 class="font-heading text-4xl text-gold mt-6">Hawa Johnson</h3>
+                        <p class="mt-2 text-gray-400">Putri dari Bapak Chris Johnson & Ibu Sarah Johnson</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Bagian Acara & Countdown -->
-            <section id="acara" class="py-20 bg-gray-800">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="font-script text-5xl text-gold mb-12" data-aos="fade-up">Save The Date</h2>
-                    <div id="countdown" class="flex justify-center gap-4 md:gap-8 text-white mb-12" data-aos="fade-up">
-                        <!-- Countdown akan diisi oleh JavaScript -->
-                    </div>
-                    <div class="flex flex-col md:flex-row justify-center gap-8">
-                        <div class="bg-gray-900 p-8 rounded-lg shadow-lg flex-1 border-t-4 border-gold" data-aos="fade-up-right">
-                            <h3 class="font-script text-4xl mb-4">Akad Nikah</h3>
-                            <p class="flex items-center justify-center gap-2"><ion-icon name="calendar-outline"></ion-icon> Jumat, 8 Desember 2025</p>
-                            <p class="flex items-center justify-center gap-2 mt-2"><ion-icon name="time-outline"></ion-icon> 09:00 - 10:00 WIB</p>
-                            <p class="flex items-center justify-center gap-2 mt-2"><ion-icon name="location-outline"></ion-icon> Masjid Istiqlal, Jakarta</p>
-                        </div>
-                        <div class="bg-gray-900 p-8 rounded-lg shadow-lg flex-1 border-t-4 border-gold" data-aos="fade-up-left">
-                            <h3 class="font-script text-4xl mb-4">Resepsi</h3>
-                            <p class="flex items-center justify-center gap-2"><ion-icon name="calendar-outline"></ion-icon> Minggu, 10 Desember 2025</p>
-                            <p class="flex items-center justify-center gap-2 mt-2"><ion-icon name="time-outline"></ion-icon> 12:00 - 15:00 WIB</p>
-                            <p class="flex items-center justify-center gap-2 mt-2"><ion-icon name="location-outline"></ion-icon> Gedung Balai Kartini, Jakarta</p>
-                        </div>
-                    </div>
-                     <a href="https://maps.google.com" target="_blank" class="mt-10 inline-block bg-gold text-gray-900 font-bold px-8 py-3 rounded-lg shadow-md hover:bg-gold-dark transition duration-300" data-aos="fade-up">Buka Peta Lokasi</a>
+        <!-- Bagian Acara & Countdown -->
+        <section id="acara" class="py-20 md:py-28 bg-dark">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-gold" data-aos="fade-up">Save The Date</h2>
+                <div class="divider" data-aos="fade-up"></div>
+
+                <!-- Countdown Timer -->
+                <div id="countdown" class="flex justify-center gap-4 md:gap-8 text-white my-16" data-aos="fade-up">
+                    <!-- Countdown diisi oleh JavaScript -->
                 </div>
-            </section>
-            
-            <!-- Bagian Galeri -->
-            <section id="galeri" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="font-script text-5xl text-gold mb-12" data-aos="fade-up">Our Moments</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div data-aos="zoom-in"><img src="https://placehold.co/400x400/1F2937/E5E7EB?text=Foto+1" class="gallery-item rounded-lg shadow-md shadow-black/30 cursor-pointer hover:scale-105 transition-transform duration-300" alt="Galeri 1"></div>
-                        <div data-aos="zoom-in" data-aos-delay="100"><img src="https://placehold.co/400x400/1F2937/E5E7EB?text=Foto+2" class="gallery-item rounded-lg shadow-md shadow-black/30 cursor-pointer hover:scale-105 transition-transform duration-300" alt="Galeri 2"></div>
-                        <div data-aos="zoom-in" data-aos-delay="200"><img src="https://placehold.co/400x400/1F2937/E5E7EB?text=Foto+3" class="gallery-item rounded-lg shadow-md shadow-black/30 cursor-pointer hover:scale-105 transition-transform duration-300" alt="Galeri 3"></div>
-                        <div data-aos="zoom-in" data-aos-delay="300"><img src="https://placehold.co/400x400/1F2937/E5E7EB?text=Foto+4" class="gallery-item rounded-lg shadow-md shadow-black/30 cursor-pointer hover:scale-105 transition-transform duration-300" alt="Galeri 4"></div>
+
+                <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
+                    <!-- Akad Nikah -->
+                    <div class="bg-soft-dark p-8 rounded-lg shadow-lg flex-1 border-t-4 border-gold" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-heading text-4xl text-gold mb-6">Akad Nikah</h3>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="calendar-outline" class="text-gold text-2xl"></ion-icon> Jumat, 8 Desember 2025</p>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="time-outline" class="text-gold text-2xl"></ion-icon> 09:00 - 10:00 WIB</p>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="location-outline" class="text-gold text-2xl"></ion-icon> Masjid Istiqlal, Jakarta</p>
+                    </div>
+                    <!-- Resepsi -->
+                    <div class="bg-soft-dark p-8 rounded-lg shadow-lg flex-1 border-t-4 border-gold" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="font-heading text-4xl text-gold mb-6">Resepsi</h3>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="calendar-outline" class="text-gold text-2xl"></ion-icon> Minggu, 10 Desember 2025</p>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="time-outline" class="text-gold text-2xl"></ion-icon> 12:00 - 15:00 WIB</p>
+                        <p class="flex items-center justify-center gap-3 mt-4 text-lg"><ion-icon name="location-outline" class="text-gold text-2xl"></ion-icon> Hotel Indonesia Kempinski, Jakarta</p>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+
+        <!-- Bagian Galeri -->
+        <section id="galeri" class="py-20 md:py-28 bg-soft-dark">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-gold" data-aos="fade-up">Momen Bahagia</h2>
+                <div class="divider" data-aos="fade-up"></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+                    <div data-aos="zoom-in"><img src="https://placehold.co/400x600/2b2b2b/E0C56E?text=Momen+1" class="gallery-item rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300" alt="Galeri 1"></div>
+                    <div data-aos="zoom-in" data-aos-delay="100"><img src="https://placehold.co/400x600/2b2b2b/E0C56E?text=Momen+2" class="gallery-item rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300" alt="Galeri 2"></div>
+                    <div data-aos="zoom-in" data-aos-delay="200"><img src="https://placehold.co/400x600/2b2b2b/E0C56E?text=Momen+3" class="gallery-item rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300" alt="Galeri 3"></div>
+                    <div data-aos="zoom-in" data-aos-delay="300"><img src="https://placehold.co/400x600/2b2b2b/E0C56E?text=Momen+4" class="gallery-item rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300" alt="Galeri 4"></div>
+                </div>
+            </div>
+        </section>
 
         <!-- Footer -->
-        <footer class="bg-black text-gray-400 py-6 text-center">
-            <p>&copy; 2025, Rizky & Anisa. Crafted with ❤.</p>
+        <footer class="bg-dark py-16 text-center">
+            <p class="text-gray-400">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir.</p>
+            <h3 class="font-heading text-4xl text-gold mt-4">Adam & Hawa</h3>
+            <p class="text-gray-500 mt-8">&copy; 2025. Dibuat dengan Penuh Cinta.</p>
         </footer>
     </div>
 
     <!-- Modal Galeri -->
-    <div id="gallery-modal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
-        <img id="modal-img" src="" alt="Gambar Galeri" class="max-w-full max-h-full rounded-lg">
-        <button id="close-modal" class="absolute top-5 right-5 text-white text-4xl">&times;</button>
+    <div id="gallery-modal" class="modal fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <img id="modal-img" src="" alt="Gambar Galeri" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl">
+        <button id="close-modal" class="absolute top-4 right-4 text-white text-5xl font-light">&times;</button>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Inisialisasi AOS (Animate on Scroll)
         AOS.init({
-            once: true, // Animasi hanya berjalan sekali
-            duration: 800,
+            once: true,
+            duration: 1000,
         });
 
         // --- Logika untuk membuka undangan ---
@@ -184,17 +211,16 @@
         const body = document.body;
 
         openButton.addEventListener('click', () => {
-            cover.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+            cover.style.transition = 'opacity 1.5s ease-out, transform 1.5s ease-out';
             cover.style.opacity = '0';
-            cover.style.transform = 'scale(1.2)';
+            cover.style.transform = 'scale(1.1)';
             
             setTimeout(() => {
                 cover.classList.add('hidden');
                 mainContent.classList.remove('hidden');
-                body.classList.remove('overflow-hidden');
                 musicControl.classList.remove('hidden');
-                music.play();
-            }, 1000);
+                music.play().catch(error => console.log("Autoplay dicegah oleh browser."));
+            }, 1500);
         });
 
         // --- Logika Kontrol Musik ---
@@ -210,7 +236,7 @@
         });
 
         // --- Logika Countdown ---
-        const countdownDate = new Date("Dec 10, 2025 09:00:00").getTime();
+        const countdownDate = new Date("Dec 10, 2025 12:00:00").getTime();
         const countdownElement = document.getElementById('countdown');
 
         const updateCountdown = setInterval(() => {
@@ -223,15 +249,15 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             countdownElement.innerHTML = `
-                <div class="text-center"><div class="font-bold text-4xl">${days}</div><div class="text-sm text-gray-400">Hari</div></div>
-                <div class="text-center"><div class="font-bold text-4xl">${hours}</div><div class="text-sm text-gray-400">Jam</div></div>
-                <div class="text-center"><div class="font-bold text-4xl">${minutes}</div><div class="text-sm text-gray-400">Menit</div></div>
-                <div class="text-center"><div class="font-bold text-4xl">${seconds}</div><div class="text-sm text-gray-400">Detik</div></div>
+                <div class="text-center"><div class="font-heading text-5xl md:text-6xl text-gold">${days}</div><div class="text-sm text-gray-400 mt-1">Hari</div></div>
+                <div class="text-center"><div class="font-heading text-5xl md:text-6xl text-gold">${hours}</div><div class="text-sm text-gray-400 mt-1">Jam</div></div>
+                <div class="text-center"><div class="font-heading text-5xl md:text-6xl text-gold">${minutes}</div><div class="text-sm text-gray-400 mt-1">Menit</div></div>
+                <div class="text-center"><div class="font-heading text-5xl md:text-6xl text-gold">${seconds}</div><div class="text-sm text-gray-400 mt-1">Detik</div></div>
             `;
 
             if (distance < 0) {
                 clearInterval(updateCountdown);
-                countdownElement.innerHTML = "<div class='text-2xl'>Acara Telah Berlangsung</div>";
+                countdownElement.innerHTML = "<div class='text-2xl font-heading text-gold'>Acara Telah Berlangsung</div>";
             }
         }, 1000);
 
