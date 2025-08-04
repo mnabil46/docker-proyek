@@ -1,0 +1,45 @@
+# Nama alur kerja (workflow) yang akan muncul di tab "Actions" GitHub
+name: CI/CD Docker Image
+
+# Pemicu (trigger) kapan alur kerja ini akan berjalan
+on:
+  # Berjalan setiap kali ada push ke branch 'main'
+  push:
+    branches: [ "main" ]
+  # Juga bisa dijalankan secara manual dari tab Actions
+  workflow_dispatch:
+
+# Daftar pekerjaan (jobs) yang akan dieksekusi
+jobs:
+  build_and_push:
+    # Menggunakan OS Ubuntu versi terbaru untuk menjalankan pekerjaan ini
+    runs-on: ubuntu-latest
+
+    # Memberikan izin kepada job ini untuk menulis ke GitHub Packages (GHCR)
+    permissions:
+      contents: read
+      packages: write
+
+    # Langkah-langkah yang akan dijalankan
+    steps:
+      # 1. Mengunduh kode dari repositori Anda ke dalam runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Login ke GitHub Container Registry (GHCR)
+      #    GITHUB_TOKEN adalah secret yang otomatis dibuat oleh GitHub
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Membangun (build) dan mendorong (push) Docker image ke GHCR
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          # Memberi tahu action untuk langsung push setelah build berhasil
+          push: true
+          # Memberi tag pada image. Formatnya: ghcr.io/USERNAME/REPO_NAME:latest
+          tags: ghcr.io/${{ github.repository }}:latest
